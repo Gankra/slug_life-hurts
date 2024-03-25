@@ -1,0 +1,44 @@
+[package]
+name = "slug_life-hurts"
+version = "0.1.0"
+edition = "2021"
+description = "a terrible package name"
+repository = "https://github.com/Gankra/slug_life-hurts"
+license = "MIT OR Apache-2.0"
+authors = ["Gankra"]
+
+[package.metadata.wix]
+upgrade-guid = "A8658FEE-A3F5-466D-AAAC-33C19FE7BB03"
+path-guid = "1B4F3F0A-400A-4769-97A5-92F70E6F4C2D"
+license = false
+eula = false
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+
+# The profile that 'cargo dist' will build with
+[profile.dist]
+inherits = "release"
+lto = "thin"
+
+# Config for 'cargo dist'
+[workspace.metadata.dist]
+# The preferred cargo-dist version to use in CI (Cargo.toml SemVer syntax)
+cargo-dist-version = "0.12.0"
+# CI backends to support
+ci = ["github"]
+# The installers to generate for each app
+installers = ["shell", "powershell", "npm", "homebrew", "msi"]
+# Target platforms to build apps for (Rust target-triple syntax)
+targets = ["aarch64-apple-darwin", "x86_64-apple-darwin", "x86_64-unknown-linux-gnu", "x86_64-pc-windows-msvc"]
+# The archive format to use for windows builds (defaults .zip)
+windows-archive = ".tar.gz"
+# The archive format to use for non-windows builds (defaults .tar.xz)
+unix-archive = ".tar.gz"
+# A namespace to use when publishing this package to the npm registry
+npm-scope = "@gankra"
+# Publish jobs to run in CI
+pr-run-mode = "plan"
+# Whether to install an updater program
+install-updater = false
